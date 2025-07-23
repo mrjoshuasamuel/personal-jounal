@@ -1,0 +1,114 @@
+version: '3.8'
+
+services:
+  # React Frontend Application
+  daily-journal-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: daily-journal-app
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL:-http://localhost:5000}
+      - REACT_APP_MAX_VIDEO_SIZE=${REACT_APP_MAX_VIDEO_SIZE:-104857600}
+    volumes:
+      # Mount for development hot-reload (comment out for production)
+      - ./src:/app/src:ro
+      - ./public:/app/public:ro
+    restart: unless-stopped
+    networks:
+      - journal-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.journal-frontend.rule=Host(`localhost`)"
+      - "traefik.http.services.journal-frontend.loadbalancer.server.port=80"
+
+  # Future: Backend API Service (commented out for now)
+  # daily-journal-backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   container_name: daily-journal-api
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     - NODE_ENV=production
+  #     - DATABASE_URL=${DATABASE_URL}
+  #     - JWT_SECRET=${JWT_SECRET}
+  #     - OPENAI_API_KEY=${OPENAI_API_KEY}
+  #   depends_on:
+  #     - database
+  #   networks:
+  #     - journal-network
+  #   restart: unless-stopped
+
+  # Future: Database Service (commented out for now)
+  # database:
+  #   image: mongo:6.0
+  #   container_name: daily-journal-db
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+  #     - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+  #     - MONGO_INITDB_DATABASE=daily_journal
+  #   volumes:
+  #     - journal_db_data:/data/db
+  #     - ./scripts/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+  #   networks:
+  #     - journal-network
+  #   restart: unless-stopped
+
+  # Future: Redis Cache (commented out for now)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: daily-journal-cache
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - journal_redis_data:/data
+  #   networks:
+  #     - journal-network
+  #   restart: unless-stopped
+
+  # Development: Hot-reload development server
+  daily-journal-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: daily-journal-dev
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_BASE_URL=http://localhost:5000
+    volumes:
+      - .:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    networks:
+      - journal-network
+    profiles:
+      - development
+
+networks:
+  journal-network:
+    driver: bridge
+    name: daily-journal-network
+
+volumes:
+  journal_db_data:
+    name: daily_journal_database
+  journal_redis_data:
+    name: daily_journal_cache
+
+# Health checks and monitoring
+x-healthcheck: &default-healthcheck
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 40s

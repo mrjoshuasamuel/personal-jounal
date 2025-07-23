@@ -1,0 +1,111 @@
+{
+  "short_name": "Daily Journal",
+  "name": "Daily Journal - Video Journaling App",
+  "description": "Record, reflect, and grow through intelligent video journaling with AI-powered insights.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#4f46e5",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": [
+    "productivity",
+    "lifestyle",
+    "health"
+  ],
+  "lang": "en-US",
+  "dir": "ltr",
+  "shortcuts": [
+    {
+      "name": "Record Entry",
+      "short_name": "Record",
+      "description": "Record a new video journal entry",
+      "url": "/?tab=record",
+      "icons": [
+        {
+          "src": "icons/record-96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Upload Video",
+      "short_name": "Upload",
+      "description": "Upload a video journal entry",
+      "url": "/?tab=upload",
+      "icons": [
+        {
+          "src": "icons/upload-96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "View Entries",
+      "short_name": "Entries",
+      "description": "View all journal entries",
+      "url": "/?tab=entries",
+      "icons": [
+        {
+          "src": "icons/entries-96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Dashboard view with video entries"
+    },
+    {
+      "src": "screenshots/mobile-1.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Mobile recording interface"
+    }
+  ],
+  "prefer_related_applications": false,
+  "protocol_handlers": [
+    {
+      "protocol": "web+dailyjournal",
+      "url": "/?action=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share-target/",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "files": [
+        {
+          "name": "video",
+          "accept": ["video/mp4", "video/webm", "video/avi", "video/mov"]
+        }
+      ]
+    }
+  }
+}
