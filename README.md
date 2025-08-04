@@ -16,8 +16,8 @@ Before starting, make sure you have:
 
 ### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/your-username/daily-journal-app.git
-cd daily-journal-app
+git clone https://github.com/mrjoshuasamuel/personal-jounal.git
+cd personal-jounal
 ```
 
 ### Step 2: Start the Application
@@ -212,7 +212,7 @@ If you encounter issues:
 1. **Check the logs**: `./run.sh logs`
 2. **Review documentation**: See `/docs` folder
 3. **Common solutions**: Check this troubleshooting section
-4. **Open an issue**: [GitHub Issues](https://github.com/your-username/daily-journal-app/issues)
+4. **Open an issue**: [GitHub Issues](https://github.com/mrjoshuasamuel/personal-jounal/issues)
 5. **Join community**: [Discord Server](https://discord.gg/your-server)
 
 ## 🎉 Success!
