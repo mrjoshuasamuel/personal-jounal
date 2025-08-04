@@ -92,6 +92,21 @@ export const VideoCardSkeleton = () => {
 
 // Inline spinner for buttons
 export const ButtonSpinner = ({ size = 'small', color = 'white' }) => {
+  const sizeClasses = {
+    small: 'w-4 h-4',
+    medium: 'w-6 h-6',
+    large: 'w-8 h-8'
+  };
+
+  const colorClasses = {
+    indigo: 'text-indigo-600',
+    blue: 'text-blue-600',
+    green: 'text-green-600',
+    red: 'text-red-600',
+    gray: 'text-gray-600',
+    white: 'text-white'
+  };
+
   return (
     <Loader2 
       className={`${sizeClasses[size]} ${colorClasses[color]} animate-spin`}

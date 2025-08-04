@@ -5,25 +5,6 @@ import ErrorBoundary from './components/common/ErrorBoundary';
 import './index.css';
 import './styles/globals.css';
 
-// Performance monitoring
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
-
-// Report web vitals for performance monitoring
-function sendToAnalytics(metric) {
-  // In production, send to your analytics service
-  if (process.env.NODE_ENV === 'development') {
-    console.log('Web Vital:', metric);
-  }
-  
-  // Example: Send to Google Analytics
-  // gtag('event', metric.name, {
-  //   value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-  //   event_category: 'Web Vitals',
-  //   event_label: metric.id,
-  //   non_interaction: true,
-  // });
-}
-
 // Create root element
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -35,13 +16,6 @@ root.render(
     </ErrorBoundary>
   </React.StrictMode>
 );
-
-// Measure performance
-getCLS(sendToAnalytics);
-getFID(sendToAnalytics);
-getFCP(sendToAnalytics);
-getLCP(sendToAnalytics);
-getTTFB(sendToAnalytics);
 
 // Hot Module Replacement for development
 if (module.hot && process.env.NODE_ENV === 'development') {
